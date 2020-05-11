@@ -1,0 +1,76 @@
+body {
+    -webkit-app-region: drag;
+    display : grid;
+    background-color: #818181;
+    font-family : Londrina Shadow;
+ }
+
+
+.app {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 10fr 45px;
+    grid-template-columns: 200px 1fr;
+  }
+  
+  header {
+    height: 100%;
+    width : 100%;
+    background-color: #313536;
+    color : white;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+  }
+  
+  aside {
+    height: 100%;
+    width : 100%;
+    background-color: #818181;
+    color : white;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+  }
+
+  aside a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .form-input {
+    height: 30%;
+    width : 80%;
+    font-size:14pt;
+  }
+
+  .form-input2 {
+    height: 20%;
+    width : 80%;
+    font-size: 8pt;
+  }
+
+  #Annoter {
+      height : 10px;
+      width : 20 px;
+  }
+
+  #Inputtxt{
+    color : white;
+    font-size : 25px;
+  }
+
+  .input-txt{
+    background: none;
+    padding: 0.5rem;
+    margin: 0;
+    cursor: pointer;
+    color : white;
+    font-size : 25px;
+  }
