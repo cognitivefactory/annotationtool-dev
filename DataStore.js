@@ -51,7 +51,8 @@ class DataStore extends Store {
   }
 
   addType (inputText) {
-    this.type = [ ...this.type, inputText ]
+    //this.type = [ ...this.type, inputText ]
+    this.type = inputText
     return this.saveType()
   }
 
@@ -59,6 +60,17 @@ class DataStore extends Store {
     // set object's inputs to inputs in JSON file
     //this.inputs = this.get('inputs') || []
     return (this.get('text') || this.get('type'))
+  }
+
+  getText(){
+    this.text = this.get('text') || []
+    return this
+  }
+
+  deleteText() {
+    this.text = []
+    this.inputs = []
+    return this.saveinputs()
   }
 
 }

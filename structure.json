@@ -1,6 +1,14 @@
 {
-	"text": "Bonjour",
-	"type": [
-		"Salutation"
-	]
+  "events": {
+    "_events": {},
+    "_eventsCount": 0
+  },
+  "path": "/Users/monetanais/Desktop/annotationtool-dev/config/DataStruct.json",
+  "text": "fsd",
+  "type": [
+    "slt",
+    "sd",
+    "qsv",
+    "vfv"
+  ]
 }
