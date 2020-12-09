@@ -7,18 +7,14 @@ const { ipcRenderer } = require('electron')
 // et va l'envoyer au main process avec le message 'add-text'
 document.getElementById('InputText').addEventListener('submit', (evt) => {
 
-
   evt.preventDefault();
-
 
   const input = evt.target[0];
 
   // envoie au main process
-  ipcRenderer.send('add-text', input.value);
-
+  ipcRenderer.send('add-json-key', input.value);
 
   input.value = '';
 
-  ipcRenderer.send('closeAddWInn');
-
+  ipcRenderer.send('closejsonWin');
 })

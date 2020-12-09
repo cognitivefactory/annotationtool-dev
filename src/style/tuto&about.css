@@ -1,37 +1,105 @@
-.left {
-    width: 30%;
+#entete{
+  padding:1px 0;
+  margin: 0;
+}
+#entete {
+  background-color: rgb(71,71,71);
+  height: 23px;
+  color:white;
+}
+
+#top {
+  color: #F1F1F1;
+  font-size: 20px;
+  font-family: "Raleway", sans-serif;
+  margin-right: 10px;
+
+}
+
+#top:hover {
+  font-weight: bold;
+}
+
+a {
+  padding-top: 12.5px;
+  padding-left: 5px;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: "Raleway", sans-serif;
+  color: black;
+  transition: 0.3s;
+  border: transparent;
+}
+
+html{
+  height: 100%;
+  width: 100%;
+}
+
+body {
+    margin: 0;
     height: 100%;
-    float: left;
-    background-color: #313536;
-    color : white;
-    position: fixed;
-    z-index: 1;
-    top: 0; 
-    left: 0;
+    width: 100%;
+    font-family: "Raleway", sans-serif;
+ }
+
+ ul {
+  list-style: circle inside none;
+}
+ .app {
+   height: 100%;
+   width: 100%;
+ }
+
+  .main {
+    height : 100%;
+    width: 100%;
+    margin: 0;
+    background-color: white;
+    /*
+    opacity: 0.95;
+    background-image: url('./img/parlement.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+    */
   }
-  
-  .right {
-    width: 70%;
+
+
+  .content {
+    float: right;
     height: 100%;
-    float: left;
-    background-color: #818181;
-    position: fixed;
-    z-index: 2;
-    top: 0; 
-    left: 30%;
+    width: 100%;
+    margin: 0;
   }
 
+ .content .description {
+   font-size: 20px;
+   margin-left: 15%;
+   margin-top : 10%;
+ }
 
-  a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
+ .content .description h1 {
+   font-size: 25px;
+   font-weight: bold;
+ }
 
-  a:hover {
-    color: #f1f1f1;
-  }
+ .content .description button {
+    font-family: "Raleway", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 10px 32px;
+    border-radius: 2px;
+    transition: 0.5s;
+    margin: 10px;
+    color: #fff;
+    background: rgb(71,71,71);
+    border: 2px solid rgb(71,71,71);
+ }
 
+ .content .description button:hover {
+    background: none;
+    color: rgb(71,71,71);
+ }

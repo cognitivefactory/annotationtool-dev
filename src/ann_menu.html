@@ -3,29 +3,47 @@
 
    <head>
       <meta charset = "UTF-8">
-      <title>Annotation</title>
+      <title>Strapostille</title>
       <link rel="stylesheet" href="./style/ann_menu.css">
    </head>
 
    <body>
       <div id="entete">
          <a id="top" href="../index.html"> Home </a>
-         <a id="top" href="./about.html">About </a>
-         <a id="top" href="./tutorial.html">Tutorials</a>
+         <a id="top" href="./about.html">A propos </a>
+         <a id="top" href="./tutorial.html">Tutoriel</a>
 
       </div>
       <div id="main">
          <div id="menu">
-            <button id="WriteBtn" type="button" class="btn">Ecrire mon texte</button>
-            <button id="AddtxtBtn" type="button" class="btn">Importer texte</button>
+            <button id="WriteBtn" type="button" class="btnHaut">Ecrire texte</button>
+            <button id="AddtxtBtn" type="button" class="btn">Importer fichier</button>
             <button id="AnnoterBtn" type="button" class="btn">Annoter tout le texte</button>
-            <button id="AnnoterPartBtn" type="button" class="btn" onclick="GetSelectedText()">Annoter</button>
-            <button id="clearBtn" type="button" class="btn">Effacer</button>
-            <button id="Refresh" type="button" class="btn">Reprendre l'ancien travail</button>
-            <button id="DownloadBtn" type="button" class="btn">Télécharger JSON</button>
+            <button id="AnnoterPartBtn" type="button" class="btn" onclick="GetSelectedText()">Annoter entité</button>
+            <button id="clearBtn" type="button" class="btn">Effacer travail</button>
+            <button id="Refresh" type="button" class="btn">Reprendre travail précedent</button>
+            <button id="DownloadBtn" type="button" class="btn2">Sauvegarder</button>
          </div>
          <div id="contenu">
-            <div id="Inputtxt"></div>
+            <div class = "test" id="Inputtxt">
+
+            </div>
+            <div class = "test" id="annotation">
+               <div class = "search" id="ent">
+                 Annotations
+               </div>
+
+               <div class = "search" id = "bar">
+                  <input type="text" id="mySearch" onkeyup="mySearch()" placeholder="Recherche...">
+               </div>
+
+               <div class = "search" id="ann-list">
+                  <ul class="annotation-list" id="annList">
+
+                  </ul>
+               </div>
+
+            </div>
         </div>
 
       </div>
@@ -35,23 +53,68 @@
 </html>
 
 <script text="javascript">
-   //const { ipcRenderer } = require('electron')
+
+   function changeClass(elem){
+      if (elem.className == 'input-txt'){
+         elem.className = "input-txt-toggle";
+         var elt = elem.textContent;
+         ipcRenderer.send('annotate-object',elt);
+      }
+      else{
+         elem.className = 'input-txt';
+      }
+   }
 
    function GetSelectedText(){
+
       var selectedText = '';
+      var range = [];
+      var start = 0;
+      var end = 0;
+      let element = document.createElement("mark")
+
       if (window.getSelection) {
          selectedText = window.getSelection();
-      }
-      else if (document.getSelection) {
-         selectedText = document.getSelection();
-      }
-      else if (document.selection) {
-         selectedText = document.selection.createRange().text;
-      } else return;
 
-      // Send selectedText to main process
-      var textSelected = selectedText.toString()
-      console.log(ipcRenderer.send('text-selection', textSelected))
+         var range_temp = selectedText.getRangeAt(0);
+
+         var preCaretRange = range_temp.cloneRange();
+
+         preCaretRange.selectNodeContents(document.getElementById('input'));
+         preCaretRange.setEnd(range_temp.startContainer, range_temp.startOffset);
+         start = preCaretRange.toString().length;
+         preCaretRange.setEnd(range_temp.endContainer, range_temp.endOffset);
+         end = preCaretRange.toString().length;
+         range.push(start,end);
+         window.getSelection().getRangeAt(0).surroundContents(element);
+         var rangeToSelect = document.createRange();
+         rangeToSelect.selectNode(selectedText.anchorNode);
+         var objectText = rangeToSelect.toString();
+
+      }
+      var textSelected = selectedText.toString();
+      ipcRenderer.send('text-selection', textSelected,range,objectText )
    }
+
+   function mySearch(){
+      // Declare variables
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById('mySearch');
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("annList");
+      li = ul.getElementsByTagName('li');
+
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < li.length; i++) {
+         a = li[i].getElementsByTagName("a")[0];
+         txtValue = a.textContent || a.innerText;
+         if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+         } else {
+            li[i].style.display = "none";
+         }
+      }
+   }
+
 
 </script>

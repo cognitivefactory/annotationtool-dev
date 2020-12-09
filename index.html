@@ -3,21 +3,51 @@
 
    <head>
       <meta charset = "UTF-8">
-      <title>Application</title>
+      <title>Strapostille</title>
       <link rel="stylesheet" href="./src/style/style.css">
    </head>
 
    <body>
 
     <div class="app">
-      <header></header>
-      <aside>
-        <a href="./src/about.html">About </a>
-        <a href="./src/ann_menu.html" i>Annotation</a>
-        <a href="./src/tutorial.html">Tutorials</a>
+      <div class="main">
 
-      </aside>
-      <main></main>
+      <div class="lateral">
+        <li>
+          <button class="page" onclick="document.location='./src/ann_menu.html'">Annotation</button>
+          <button class="page" onclick="document.location='./src/tutorial.html'">Tutoriels</button>
+
+        </li>
+
+
+      </div>
+
+      <div class="content">
+        <div class="logo">
+          <img src="./src/style/img/Stra.png" width="100px" height="100px" style="margin-left: 45%; margin-top:2%;">
+        </div>
+
+        <div class="description">
+          <h1> Bienvenue sur STRAPOSTILLE. </h1>
+          <br>
+          Cette application vous permet d'annoter des textes au format suivant :
+          <ul>
+            <li> TXT </li>
+            <li> JSON </li>
+            <li> Excel</li>
+            <li> CSV </li>
+          </ul>
+          <br>
+          Vous pouvez dès à présent <button class="AnnoterBtn"  onClick="document.location='./src/ann_menu.html'">annoter</button> ou aller sur la page
+          <button class="TutoBtn" onClick="document.location='./src/tutorial.html'">Tutoriels</button>.
+
+        </div>
+
+
+      </div>
+
+
+      </div>
     </div>
 
       <script src="./index.js"></script>

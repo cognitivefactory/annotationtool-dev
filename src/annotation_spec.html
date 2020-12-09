@@ -4,15 +4,17 @@
    <head>
       <meta charset = "UTF-8">
       <title>Annotation spécifique</title>
-      <link rel="stylesheet" href="./style/ann_type.css">
+      <link rel="stylesheet" href="./style/page_csv.css">
    </head>
 
    <body>
 
-    <div class="app_spec">
+    <div class="app_type">
       <form id="InputText">
          <textarea placeholder="mon annotation"></textarea>
          <button id="AddAnn"class="btn">Ajouter annotation</button>
+         <input type="checkbox" id="annotateAll" name="annotateAll" value="annotateAll">
+         <label for="annotateAll">Annoter pour toutes les occurences de la partie de texte sélectionnée</label>
       </form>
     </div>
 
