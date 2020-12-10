@@ -61,11 +61,9 @@ function main() {
       addWin.once('ready-to-show', () => {
         addWin.show()
       })
-      addWin.on('closed', () => {
-        addWin = null
-      })
 
-      ipcMain.on('closeAddWInn', () => {
+
+      ipcMain.once('closeAddWInn', () => {
         addWin.close()
         addWin = null
       })
@@ -88,11 +86,8 @@ function main() {
         annWin.show();
       })
 
-      annWin.on('closed', () => {
-        annWin = null;
-      })
 
-      ipcMain.on('closeannWin', () => {
+      ipcMain.once('closeannWin', () => {
         annWin.close()
         annWin = null
       })
@@ -117,11 +112,8 @@ function main() {
         annSpecWin.show();
       })
 
-      annSpecWin.on('closed', () => {
-        annSpecWin = null;
-      })
 
-      ipcMain.on('closeannSpecWin', () => {
+      ipcMain.once('closeAnnSpecWin', () => {
         annSpecWin.close()
         annSpecWin = null
       })
@@ -148,11 +140,9 @@ function main() {
         jsonWin.show();
       })
 
-      jsonWin.on('closed', () => {
-        jsonWin = null;
-      })
 
-      ipcMain.on('closejsonWin', () => {
+
+      ipcMain.once('closejsonWin', () => {
         jsonWin.close()
         jsonWin = null
       })
@@ -348,8 +338,10 @@ function main() {
     console.log(range);
     console.log(objectText);
     */
+
     /* Une fois qu'on a reçu l'annotation de annotation_spec.js */
     ipcMain.once('text-selection-annotation', (event, annotation, annotateAll) => {
+
       /*
       console.log('icpmain in ipcmain');
       console.log(txt);
@@ -357,7 +349,9 @@ function main() {
       console.log(annotateAll);
       */
 
+
       console.log(mainWindow.send('annAddList', txt, annotation, 0));
+      DataStructure.addType(annotation).type;
 
       /*
       On récupére le rang de l'objet dans le fichier d'entrée
@@ -373,10 +367,12 @@ function main() {
         if (txt.localeCompare(textData.getinputs()[i]) == 0 && i == 0) {
           break;
         } else {
+
           /*
           console.log("Objet");
           console.log(i);
           */
+
           if (objectText.localeCompare(textData.getinputs()[i]) == 0) {
             break;
           }
@@ -385,37 +381,18 @@ function main() {
       };
 
       range = [range[0] - start, range[1] - start];
-      DataStructure.addType(annotation).type;
+      //DataStructure.addType(annotation).type;
       var jsonString2 = { 'text': objectText, 'type': annotation };
+
       /*
       console.log('jsonString2');
       console.log(jsonString2);
       */
 
+
       openJsonAddAnnSpec('./config/DataStorage.json', jsonString2, annotateAll, range, txt);
 
-      // Ajouter l'objet JSON dans un fichier sauvegarde dans config
-      fs.readFile('./config/DataStruct.json', 'utf8', (err, jsonString) => {
-        if (err) {
-          console.log("File read failed:", err);
-          return
-        }
-        const jsonString2 = JSON.parse(jsonString);
-        /*
-        console.log('jsonString2')
-        console.log(jsonString2)
-        */
 
-        /*
-        Appelle la fonction pour l'annotation spécifique qui fera le nouvel objet
-        {"text": TextMain.inputs[0],
-        "type" : "", (on met un type vide pour savoir qu'on annote spécifiquement lors de la recherche d'objets dans DataStorage)
-        "entities": [(B1,E1,annotation),...,(Bn,En,annotation)]} avec n le nombre d'occurences de txt dans textMain
-        */
-
-        openJsonAddAnnSpec('./config/DataStorage.json', jsonString2, annotateAll, range, txt);
-
-      })
     })
   })
 
@@ -478,6 +455,7 @@ function main() {
 
         /* Écriture dans DataStorage.json */
         const json = JSON.stringify(file);
+
         /*
         console.log('json addObjectJsonAnnSpec');
         console.log(json);
