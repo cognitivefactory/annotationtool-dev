@@ -67,9 +67,11 @@ document.getElementById('AddtxtBtn').addEventListener('click', () => {
             }else{
               const obj = data.split('{');
               for (var i = 1; i<obj.length; i++){
-                const text = obj[i].split('\"' + key + '\"');
-                const txt = text[1].split('\"');
-                ipcRenderer.send('add-txt', txt[1]);
+                const sp = obj[i].split(":");
+                if (sp[0].indexOf("\"" + key + "\"") !== -1){
+                  const txt = sp[1].split('\"');
+                  ipcRenderer.send('add-txt', txt[1]);
+                }
               }
             }
           })
@@ -86,7 +88,7 @@ document.getElementById('AddtxtBtn').addEventListener('click', () => {
               const sep= key_sep.split(';')[1];
               const obj = data.split('\n');
               var ind = 0;
-              const index = obj[0].split(',');
+              const index = obj[0].split(sep);
               for (var j = 0; j<index.length; j++){
                 if (index[j] == key){
                   ind = j;
@@ -132,7 +134,6 @@ document.getElementById('AddtxtBtn').addEventListener('click', () => {
   })
 })
 
-
 // Quand ce renderer process reçoit inputstoPrint
 // il va ajouter le contenu du JSON file dans la page html ann_menu.html
 // dans la balise id=Inputtxt
@@ -149,18 +150,7 @@ ipcRenderer.on('inputstoPrint', (event, txt) => {
     })
 
 
-/* Effacer le texte */
-ipcRenderer.on('toClear', (event) => {
-    var list1 = document.getElementsByClassName("input-txt");
-    var list2 = document.getElementsByClassName('input-txt-toggle');
-    var list = list1.concat(list2);
-
-    for(var i = list.length-1; i=>0; i--){
-      list[i].parentElement.removeChild(list[i]);
-    }
-  })
-
-/* Ajout des annotations dans la barre latérale */  
+/* Ajout des annotations dans la barre latérale */
 ipcRenderer.on('annAddList', (event, txt,annotation, num ) => {
   var div = document.createElement('div');
   var ann = annotation;
@@ -233,7 +223,7 @@ ipcRenderer.on('annAddList', (event, txt,annotation, num ) => {
             fs.writeFile('./config/DataStorage.json', newContent, (err) => {
               if (err) {
                 alert("An error ocurred creating the file " + err.message);
-              } 
+              }
             })
 
           }
@@ -307,7 +297,7 @@ ipcRenderer.on('annAddList', (event, txt,annotation, num ) => {
             fs.writeFile('./config/DataStorage.json', newContent, (err) => {
               if (err) {
                 alert("An error ocurred creating the file " + err.message);
-              } 
+              }
             })
 
           }

@@ -140,8 +140,6 @@ function main() {
         jsonWin.show();
       })
 
-
-
       ipcMain.once('closejsonWin', () => {
         jsonWin.close()
         jsonWin = null
@@ -211,7 +209,6 @@ function main() {
   ipcMain.on('clear-txt', (event) => {
     textData.deleteText();
     DataStructure.clear();
-    mainWindow.send('toClear');
     mainWindow.send('inputstoPrint', textData.inputs);
   })
 
