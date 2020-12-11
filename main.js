@@ -209,6 +209,21 @@ function main() {
   ipcMain.on('clear-txt', (event) => {
     textData.deleteText();
     DataStructure.clear();
+
+    // Supprime le contenu de DataStorage.json
+    fs.readFile('./config/DataStorage.json', 'utf8', (err, jsonString) => {
+      if (err) {
+        console.log("DataStruct.json (reading fail) : ", err);
+      } else {
+
+        fs.writeFile('./config/DataStorage.json', '[]', 'utf8', function (err) {
+          if (err) {
+            console.log(err);
+          }
+        })
+      }
+    })
+
     mainWindow.send('inputstoPrint', textData.inputs);
   })
 
@@ -630,5 +645,6 @@ function main() {
 app.on('ready', main)
 
 app.on('window-all-closed', function () {
+  
   app.quit();
 })
